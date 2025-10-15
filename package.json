@@ -5,30 +5,48 @@
   "type": "module",
   "main": "dist/bin/cli.js",
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/bin/cli.js",
-    "dev": "ts-node-esm src/bin/cli.ts",
+    "compile": "npx tsc",
+    "build": "npm run compile && pkg dist/bin/cli.js --targets node18-linux-x64 --output wikiaves",
+    "start": "tsx src/bin/cli.ts",
     "lint": "eslint ./src --ext .ts",
     "format": "prettier --write ./src"
   },
   "dependencies": {
+    "@inquirer/prompts": "^7.9.0",
     "axios": "^1.7.3",
     "axios-retry": "^4.3.0",
     "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.4.5",
-    "enquirer": "^2.3.6",
+    "enquirer": "^2.4.1",
     "p-limit": "^4.0.0"
   },
   "devDependencies": {
-    "@types/node": "^24.7.2",
-    "typescript": "^5.9.3",
     "@types/cheerio": "^0.22.35",
+    "@types/node": "^24.7.2",
     "@types/p-limit": "^3.0.3",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
     "eslint": "^9.0.0",
+    "pkg": "^5.8.1",
     "prettier": "^3.2.5",
     "ts-node": "^10.9.1",
-    "ts-node-esm": "^1.1.0"
+    "ts-node-esm": "^1.1.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  },
+  "pkg": {
+    "assets": [
+      "dist/config/**/*",
+      "dist/repositories/**/*",
+      "dist/services/**/*",
+      "dist/controllers/**/*",
+      "dist/utils/**/*",
+      "dist/types/**/*",
+      "dist/assets/**/*"
+    ],
+    "scripts": [
+      "dist/bin/cli.js"
+    ],
+    "outputPath": "bin"
   }
 }
