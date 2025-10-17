@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import { config } from '../config/index.js';
-import type { RecordData } from '../types/wikiaves.js';
+import { config } from '../config/index';
+import type { RecordData } from '../types/wikiaves';
 
 /**
  * Ensure the output directory exists.

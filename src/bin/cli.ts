@@ -1,9 +1,9 @@
 import { select, search } from '@inquirer/prompts';
-import { collectRecords } from '../controllers/recordsController.js';
-import { loadMunicipalities } from '../repositories/municipalitiesRepository.js';
-import { loadSpeciesMap } from '../repositories/speciesRepository.js';
-import { config } from '../config/index.js';
-import { saveToCSV } from '../repositories/csvRepository.js';
+import { collectRecords } from '../controllers/recordsController';
+import { loadMunicipalities } from '../repositories/municipalitiesRepository';
+import { loadSpeciesMap } from '../repositories/speciesRepository';
+import { config } from '../config/index';
+import { saveToCSV } from '../repositories/csvRepository';
 
 async function main() {
   const municipalities = loadMunicipalities();

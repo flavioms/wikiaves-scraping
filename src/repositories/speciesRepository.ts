@@ -1,6 +1,6 @@
 import fs from 'fs';
-import { config } from '../config/index.js';
-import type { SpeciesFileItem } from '../types/wikiaves.js';
+import { config } from '../config/index';
+import type { SpeciesFileItem } from '../types/wikiaves';
 
 export type SpeciesMap = Record<
   string,

@@ -1,6 +1,6 @@
 import fs from 'fs';
-import { config } from '../config/index.js';
-import type { MunicipalityFileItem } from '../types/wikiaves.js';
+import { config } from '../config/index';
+import type { MunicipalityFileItem } from '../types/wikiaves';
 
 export function loadMunicipalities(filePath = config.paths.municipalitiesJson): MunicipalityFileItem[] {
   const raw = fs.readFileSync(filePath, 'utf-8');

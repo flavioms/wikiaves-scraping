@@ -4,9 +4,10 @@
   "license": "MIT",
   "type": "module",
   "main": "dist/bin/cli.js",
+  "bin": "dist/bin/cli.js",
   "scripts": {
-    "compile": "npx tsc",
-    "build": "npm run compile && pkg dist/bin/cli.js --targets node18-linux-x64 --output wikiaves",
+    "build": "tsc",
+    "pkg": "npm run build && pkg . --output wikiaves",
     "start": "tsx src/bin/cli.ts",
     "lint": "eslint ./src --ext .ts",
     "format": "prettier --write ./src"
@@ -35,18 +36,18 @@
     "typescript": "^5.9.3"
   },
   "pkg": {
-    "assets": [
-      "dist/config/**/*",
-      "dist/repositories/**/*",
-      "dist/services/**/*",
-      "dist/controllers/**/*",
-      "dist/utils/**/*",
-      "dist/types/**/*",
-      "dist/assets/**/*"
-    ],
     "scripts": [
-      "dist/bin/cli.js"
+      "dist/**/*.js"
     ],
-    "outputPath": "bin"
+    "assets": [
+      "dist/**/*.json",
+      "node_modules/axios/dist/node/axios.cjs",
+      "src/assets"
+    ],
+    "targets": [
+      "node18-linux-x64",
+      "node18-win-arm64",
+      "node18-macos-x64"
+    ]
   }
 }

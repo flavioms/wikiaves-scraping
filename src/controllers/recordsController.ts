@@ -1,8 +1,8 @@
-import { loadSpeciesMap } from '../repositories/speciesRepository.js';
-import { loadMunicipalities, filterByState } from '../repositories/municipalitiesRepository.js';
-import { getTotalRecords, getRecordsByPage } from '../services/wikiavesService.js';
-import type { RecordData } from '../types/wikiaves.js';
-import { config } from '../config/index.js';
+import { loadSpeciesMap } from '../repositories/speciesRepository';
+import { loadMunicipalities, filterByState } from '../repositories/municipalitiesRepository';
+import { getTotalRecords, getRecordsByPage } from '../services/wikiavesService';
+import type { RecordData } from '../types/wikiaves';
+import { config } from '../config/index';
 
 interface CollectParams {
   state?: string;

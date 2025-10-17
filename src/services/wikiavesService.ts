@@ -1,6 +1,6 @@
-import type { WikiAvesResponse, RecordData } from '../types/wikiaves.js';
-import httpClient from './httpClient.js';
-import { config } from '../config/index.js';
+import type { WikiAvesResponse, RecordData } from '../types/wikiaves';
+import httpClient from './httpClient';
+import { config } from '../config/index';
 
 interface BuildParams {
   municipalityCode?: number;
