@@ -3,19 +3,12 @@ import path from 'path';
 import { config } from '../config/index';
 import type { RecordData } from '../types/wikiaves';
 
-/**
- * Ensure the output directory exists.
- */
 function ensureOutputDir(): void {
   if (!fs.existsSync(config.outputDir)) {
     fs.mkdirSync(config.outputDir, { recursive: true });
   }
 }
 
-/**
- * Writes bird observation records to a CSV file.
- * Creates the file if it doesn't exist, otherwise appends.
- */
 export async function saveToCSV(records: RecordData[], fileName = 'wikiaves_records.csv'): Promise<void> {
   if (!records.length) {
     console.warn('⚠️ No records to save.');

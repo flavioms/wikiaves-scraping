@@ -30,7 +30,7 @@ export async function collectRecords({
     console.log("Searching for records...")
     const total = await getTotalRecords({ municipalityCode: m.Codigo, speciesId });
     console.log(`${total} records found, preparing file...`)
-    const pages = Math.min(Math.ceil(total / 30), maxPages);
+    const pages = Math.min(Math.ceil(total / config.wikiaves.totalPerPage), maxPages);
 
     for (let p = 1; p <= pages; p++) {
       const pageRecords = await getRecordsByPage({
