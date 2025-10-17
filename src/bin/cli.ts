@@ -45,14 +45,31 @@ async function main() {
 
   }).catch(() => '');
 
-  const records = await collectRecords({
+  const fileName = 'wikiaves_records.csv';
+  const fs = await import('fs');
+  const path = await import('path');
+  const filePath = path.join(config.outputDir, fileName);
+  if (fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath);
+  }
+
+  const startPageInput = await search({
+    message: 'Initial Page (default 1):',
+    source: async (input) => [input || '1'],
+  });
+  const startPage = Number(startPageInput) || 1;
+
+  await collectRecords({
     state,
     municipalityCode: municipalityCode as number,
     speciesName: speciesName as string || undefined,
     maxPages: config.wikiaves.maxPages,
+    startPage,
+    onPage: async (pageRecords, page, municipalityCode) => {
+      await saveToCSV(pageRecords, fileName);
+      console.log(`Page ${page} of the municipality of ${municipalityCode} saved (${pageRecords.length} records).`);
+    }
   });
-
-   await saveToCSV(records)
 }
 
 main();

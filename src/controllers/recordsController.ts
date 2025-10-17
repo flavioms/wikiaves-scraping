@@ -9,13 +9,17 @@ interface CollectParams {
   municipalityCode?: number;
   speciesName?: string;
   maxPages?: number;
+  startPage?: number;
+  onPage?: (pageRecords: RecordData[], page: number, municipalityCode?: number) => Promise<void>;
 }
 
 export async function collectRecords({
   state,
   municipalityCode,
   speciesName,
-  maxPages = config.wikiaves.maxPages
+  maxPages = config.wikiaves.maxPages,
+  startPage = 1,
+  onPage
 }: CollectParams): Promise<RecordData[]> {
   const speciesMap = loadSpeciesMap();
   const municipalities = loadMunicipalities();
@@ -32,7 +36,7 @@ export async function collectRecords({
     console.log(`${total} records found, preparing file...`)
     const pages = Math.min(Math.ceil(total / config.wikiaves.totalPerPage), maxPages);
 
-    for (let p = 1; p <= pages; p++) {
+    for (let p = startPage; p <= pages; p++) {
       const pageRecords = await getRecordsByPage({
         municipalityCode: m.Codigo,
         speciesMap,
@@ -40,6 +44,12 @@ export async function collectRecords({
         speciesId
       });
       results.push(...pageRecords);
+      
+      if (pageRecords.length > 0 && typeof onPage === 'function') {
+        console.log(`[collectRecords] Starting onPage for page ${p}, municipality ${m.Codigo}`);
+        await onPage(pageRecords, p, m.Codigo);
+        console.log(`[collectRecords] Finished onPage for page ${p}, municipality ${m.Codigo}`);
+      }
     }
   }
 
